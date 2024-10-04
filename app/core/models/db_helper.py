@@ -3,13 +3,13 @@ from core.config import settings
 
 
 class DatabaseHelper:
-    def __init__(self, url: str, poll_size: int = 5, echo: bool = False, echo_pool: bool = False,
+    def __init__(self, url: str, pool_size: int = 5, echo: bool = False, echo_pool: bool = False,
                  max_overflow: bool = 10) -> None:
         self.engine: AsyncEngine = create_async_engine(
             url=url,
             echo=echo,
             echo_pool=echo_pool,
-            pool_size=poll_size,
+            pool_size=pool_size,
             max_overflow=max_overflow,
         )
         self.session_factory: async_sessionmaker[AsyncSession] = async_sessionmaker(
@@ -33,5 +33,5 @@ db_helper = DatabaseHelper(
     echo_pool=settings.db.echo_pool,
     echo=settings.db.echo,
     max_overflow=settings.db.max_overflow,
-    poll_size=settings.db.poll_size,
+    pool_size=settings.db.pool_size,
 )
