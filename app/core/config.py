@@ -7,8 +7,14 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class ApiV1Prefix(BaseModel):
+    prefix: str = "/api_v1"
+    users: str = "/users"
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
+    v1: ApiV1Prefix = ApiV1Prefix()
 
 
 class DatabaseConfig(BaseModel):
@@ -21,7 +27,7 @@ class DatabaseConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        case_sensitive=False,   # чувствительность к регистру в переменных окружения
+        case_sensitive=False,  # чувствительность к регистру в переменных окружения
         env_nested_delimiter="__",
         env_prefix="APP__",
         env_file=".env"
